@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  name: Default  # This will use your self-hosted agent
+  vmImage: 'windows-2019'  # This has better free tier support
 
 steps:
 - task: UsePythonVersion@0
