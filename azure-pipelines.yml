@@ -11,14 +11,8 @@ pool:
 
 strategy:
   matrix:
-    Python38:
-      python.version: '3.8'
     Python39:
       python.version: '3.9'
-    Python310:
-      python.version: '3.10'
-    Python311:
-      python.version: '3.11'
 
 steps:
 - task: UsePythonVersion@0
@@ -35,3 +29,10 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+
+- task: AzureFunctionApp@1
+  inputs:
+    azureSubscription: 'Azure-Fogo-Connection'
+    appName: 'Fogolocationfunctionappdatapull'
+    package: '$(System.DefaultWorkingDirectory)'
+    deploymentMethod: 'auto'
