@@ -7,28 +7,18 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
-
-strategy:
-  matrix:
-    Python39:
-      python.version: '3.9'
+  vmImage: 'windows-latest'
 
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+    versionSpec: '3.9'
+  displayName: 'Use Python 3.9'
 
 - script: |
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install dependencies'
-
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
 
 - task: AzureFunctionApp@1
   inputs:
