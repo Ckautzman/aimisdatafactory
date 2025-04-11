@@ -1,0 +1,27 @@
+{
+  "scriptFile": "function_app.py",
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "outputblob",
+      "path": "fogo-data/{DateTime.Now:yyyy-MM-dd}/locations.json",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ]
+} 
