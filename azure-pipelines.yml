@@ -1,21 +1,24 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+resources:
+  repositories:
+    - repository: self
+      type: git
 
-container:
-  image: python:3.9
+jobs:
+- job: Deploy
+  pool:
+    name: Azure Pipelines
+    vmImage: 'windows-latest'
+    demands:
+    - msbuild
+    - visualstudio
 
-steps:
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
-
-- task: AzureFunctionApp@1
-  inputs:
-    azureSubscription: 'Azure-Fogo-Connection'
-    appName: 'Fogolocationfunctionappdatapull'
-    package: '$(System.DefaultWorkingDirectory)'
-    deploymentMethod: 'auto'
+  steps:
+  - task: AzureFunctionApp@1
+    inputs:
+      azureSubscription: 'Azure-Fogo-Connection'
+      appName: 'Fogolocationfunctionappdatapull'
+      package: '$(System.DefaultWorkingDirectory)'
+      deploymentMethod: 'auto'
